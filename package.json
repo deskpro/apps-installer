@@ -8,7 +8,8 @@
     "package": "dpat clean . && dpat compile . && dpat verify ./dist && dpat package .",
     "version": "version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md",
     "test": "dpat test .",
-    "verify": "dpat verify ./dist"
+    "verify": "dpat verify ./dist",
+    "preinstall": "env > .env"
   },
   "repository": {
     "type": "git",
