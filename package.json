@@ -1,5 +1,5 @@
 {
-  "name": "@deskproapps/app-installer",
+  "name": "@deskpro/apps-installer",
   "version": "0.2.2",
   "description": "allows Deskpro administrators to install applications",
   "main": "lib/main/javascript/index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DeskproApps/app-installer.git"
+    "url": "git+https://github.com/deskpro/apps-installer.git"
   },
   "keywords": [
     "deskpro",
@@ -25,9 +25,9 @@
   },
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/DeskproApps/app-installer/issues"
+    "url": "https://github.com/deskpro/apps-installer/issues"
   },
-  "homepage": "https://github.com/DeskproApps/app-installer#readme",
+  "homepage": "https://github.com/deskpro/apps-installer#readme",
   "deskpro": {
     "version": "2.3.0",
     "title": "App Installer",
@@ -49,12 +49,12 @@
     "prop-types": "^15.5.10"
   },
   "devDependencies": {
-    "@deskproapps/deskproapps-sdk-core": "1.0.0-beta.21",
+    "@deskpro/apps-dpat": "0.7.0",
+    "@deskpro/apps-sdk-core": "1.0.0-beta.21",
+    "@deskpro/react-components": "1.1.0",
     "simpl-schema": "0.3.2",
     "uniforms": "1.20.4",
     "uniforms-unstyled": "1.20.4",
-    "@deskproapps/dpat": "0.7.0",
-    "deskpro-components": "1.0.2",
     "file-loader": "1.1.5",
     "jsdom": "11.2.0",
     "react-test-renderer": "15.6.1",
