@@ -1,6 +1,6 @@
 {
-  "name": "@deskproapps/app-installer",
-  "version": "0.2.2",
+  "name": "@deskpro/apps-installer",
+  "version": "0.2.3",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
