@@ -9,13 +9,14 @@ script:
   - npm test
 before_deploy: npm run package
 deploy:
-  - provider: releases
-    api_key:
-      secure: ZbKPG1d/8BUDDllmCzaxzsw3UJB+it2tbT21EexH3+TSCbxDG6oiaOqWPIRks2pMzrC6oKqAnrR0EyUFt0T80A95n4gpW5Q0q4bhkKaEp5z298ASa97bIWd/H/tX7dH7lGDMgc9Oh21/opFLbV1VDQvShnBScHXcjTWeUztukCMnxWCw/70jpHTIJNWamwqFDdL+tEyOzZWuV3pEJYiCEZK+n6oG6v8NfXit1yOQWHnEgaN8oe21Byt1Iu69hbUupP1XbTYmF8tOTzPSXD444c1KvH4d5CH/cBgtv4FfpAAN7ybOXeAXQ8P+58+tkGmeoQa15+Q5a6deHsganezLVD0MxXIy48YypV8RQaw6kPSPqTKO33q3w0cIrxhUZ6lhjOwR8s1iMeQuCik7M9be65ZfzKE+vpQI8h+IQ1ekE31jQGBxoxEOlMAWiOjgGjMo0Skr1O+7IfKgpdxoVClQQ0F9Spmizj6p66LK1vJj7WoU6lyqkVXMgjtPT/LOc49iCFzsFc5V1YLfAw3hTKwwnoF5aDZ88Mi72SIflDRWRVeAWBQc8UzvJmNV8/tzTKnJ68xG4VyOlOCy2k5ekpqNBbRQimzsIw4Nuc75vvwk7pWGxSsNsdyzePmVZf1YzkbEBkgXsRAxpSelrVt1Yg5moVvPX7kGlWkb63Net78Gi1M=
-    file: dist/app.zip
-    skip_cleanup: true
-    on:
-      tags: true
+  provider: releases
+  api_key:
+    secure: PmpH4tvXGWQwPL3uZaxCop5B7Pkzh4HtaL2y3w1HlvW4+q6W53XlguboeEaPEO1agLiTq82hH8WGbbGEcDop+Y2QM3BuiVFMmcamoaw8YDOoZBJZRIkS5rH2uNkU6kKqDg3fBsO+ktsG7EX1MD1dVd2aOD/aDRTkWVauvX8kZ/WyoqYvKXnCjj/l/pVqBBviDNW7xNpQFd+9bvyw3I/aSj8nURVnjz8fHBYFeesPXU53GAxV3+Y9qxYPO6O98CMjObIK5MxP2Q9kGCznUMhgyIy8hIa1ZMvgxQfyx0tM8V7QycEjyeSkBWJoqUwZ2XQ0qUZ9NOvqD/WT0/tCGziO9DB8JQOTWPkrlVs6+JBJ64viSyMtemw+WteytNAY00Dfh8gTkZPGG5AZ19MRCQp0axeaSPWeztFjUG4Y2E2q4esXMgRt8Z/OP8bUFVuwly3K0gZrCrv/ioPh2fmii4rhDLOEx1l7f6SQJirxc0QMQy6hgxkaKqrGfwZjBEvcWPFzm6fspvK6Dw+Be1+kmJ2eq031pZchMUG+bEyn+bX89oCtU90Y+sIEExNVhKsFHUsBARi/FIePXlneZhUQ6hsXiaBAg7mgIXWezcYAZWG3gN2EX/ovUwu0ZXamHvrf5TqJGBl4fmMZV/XP0H5GRJ4d51OzqB+DUSWR2Ut5hhLOll0=
+  file: dist/app.zip
+  skip_cleanup: true
+  on:
+    repo: deskpro/apps-installer
+    tags: true
   - provider: npm
     api_key: $NPM_TOKEN
     email: radu.helstern@gmail.com
