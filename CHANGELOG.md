@@ -4,6 +4,12 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+## [0.2.3][] - 2017-10-24
+
+### Changes
+
+ - re-generate github releases credentials after repository move 
+
 ## [0.2.2][] - 2017-10-10
 
 ### Fixed
@@ -40,7 +46,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 
 
-[Unreleased]: https://github.com/deskpro/apps-installer/compare/v0.2.2...HEAD
-[0.2.2]: https://github.com/deskpro/apps-installer/compare/v0.2.1...v0.2.2
-[0.2.1]: https://github.com/deskpro/apps-installer/compare/v0.2.0...v0.2.1
-[0.2.0]: https://github.com/deskpro/apps-installer/compare/v0.1.0...v0.2.0
+[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/DeskproApps/app-installer/compare/v0.2.2...v0.2.3
+[0.2.2]: https://github.com/DeskproApps/app-installer/compare/v0.2.1...v0.2.2
+[0.2.1]: https://github.com/DeskproApps/app-installer/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/DeskproApps/app-installer/compare/v0.1.0...v0.2.0
