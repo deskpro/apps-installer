@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const dpat = require('@deskproapps/dpat');
+const dpat = require('@deskpro/apps-dpat');
 
 module.exports = function (env)
 {
@@ -15,8 +15,8 @@ module.exports = function (env)
   const resources = dpat.Resources.copyDescriptors(buildManifest, PROJECT_ROOT_PATH);
   const bundlePackages = dpat.BuildUtils.bundlePackages(PROJECT_ROOT_PATH, 'devDependencies')
     .concat([
-      'deskpro-components',
-      '@deskproapps/deskproapps-sdk-core',
+      '@deskpro/react-components',
+      '@deskpro/apps-sdk-core',
       'simpl-schema',
       'uniforms',
       'uniforms-unstyled'
@@ -69,7 +69,7 @@ module.exports = function (env)
           loader: 'babel-loader',
           include: [
             path.resolve(PROJECT_ROOT_PATH, 'src/main/javascript'),
-            path.resolve(PROJECT_ROOT_PATH, 'node_modules', '@deskproapps', 'deskproapps-sdk-core'),
+            path.resolve(PROJECT_ROOT_PATH, 'node_modules', '@deskpro', 'apps-sdk-core'),
             path.resolve(PROJECT_ROOT_PATH, 'node_modules', 'uniforms', 'src'),
             path.resolve(PROJECT_ROOT_PATH, 'node_modules', 'uniforms-unstyled', 'src')
           ].map(path => fs.realpathSync(path)),

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createAppFromProps } from '@deskproapps/deskproapps-sdk-core';
+import { createAppFromProps } from '@deskpro/apps-sdk-core';
 import renderer from 'react-test-renderer';
 
 import {AppInstallerApp} from '../../main/javascript/AppInstallerApp';

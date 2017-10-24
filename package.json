@@ -49,12 +49,12 @@
     "prop-types": "^15.5.10"
   },
   "devDependencies": {
-    "@deskproapps/deskproapps-sdk-core": "1.0.0-beta.21",
+    "@deskpro/apps-dpat": "0.7.0",
+    "@deskpro/apps-sdk-core": "1.0.0-beta.21",
+    "@deskpro/react-components": "1.1.0",
     "simpl-schema": "0.3.2",
     "uniforms": "1.20.4",
     "uniforms-unstyled": "1.20.4",
-    "@deskproapps/dpat": "0.7.0",
-    "deskpro-components": "1.0.2",
     "file-loader": "1.1.5",
     "jsdom": "11.2.0",
     "react-test-renderer": "15.6.1",
