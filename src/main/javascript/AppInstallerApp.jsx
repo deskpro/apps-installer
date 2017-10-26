@@ -71,9 +71,12 @@ export class AppInstallerApp extends React.Component
       installPromise = service.update({ manifest, appId, instanceId, settings, onProgress });
     }
 
-    installPromise.then(() => {
-      this.props.dpapp.emit(onInstallStatus, { status: 'success', manifest });
-    });
+    const onStatus = (err) => {
+      const status = err ? 'error' : 'status';
+      this.props.dpapp.emit(onInstallStatus, { status, manifest });
+    };
+
+    return installPromise.then(() => ({ onStatus }));
   }
 
   render()

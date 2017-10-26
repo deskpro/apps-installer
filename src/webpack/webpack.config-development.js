@@ -20,6 +20,9 @@ module.exports = function (env)
   // the relative path of the assets inside the distribution bundle
   const DISTRIBUTION_ASSET_PATH = 'assets';
 
+  const customSettingsScreenSrc = path.resolve(PROJECT_ROOT_PATH, 'src', 'settings', 'javascript');
+  const entryPointFilename = fs.existsSync(customSettingsScreenSrc) ? 'entrypoint.settings.js' : 'entrypoint.js';
+
   const extractCssPlugin = new dpat.Webpack.ExtractTextPlugin({
     filename: '[name].css',
     publicPath: `/${FILES_API_PATH}/${DISTRIBUTION_ASSET_PATH}/`,
@@ -50,7 +53,7 @@ module.exports = function (env)
     entry: {
       install: [
         `webpack-dev-server/client?http://localhost:31080`,
-        path.resolve(PROJECT_ROOT_PATH, 'src/webpack/entrypoint.js')
+        path.resolve(PROJECT_ROOT_PATH, 'src', 'webpack', entryPointFilename)
       ],
       // 'install-vendor' bundle is create by CommonsChunkPlugin
     },
@@ -61,10 +64,8 @@ module.exports = function (env)
           loader: 'babel-loader',
           include: [
             path.resolve(PROJECT_ROOT_PATH, 'src/main/javascript'),
-            path.resolve(PROJECT_ROOT_PATH, 'node_modules', '@deskpro', 'apps-sdk-core'),
-            path.resolve(PROJECT_ROOT_PATH, 'node_modules', 'uniforms', 'src'),
-            path.resolve(PROJECT_ROOT_PATH, 'node_modules', 'uniforms-unstyled', 'src')
-          ].map(path => fs.realpathSync(path)),
+            customSettingsScreenSrc ? path.resolve(PROJECT_ROOT_PATH, 'src/settings/javascript') : null,
+          ].filter(x => !!x).map(path => fs.realpathSync(path)),
           options: babelOptions
         },
         {

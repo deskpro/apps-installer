@@ -16,6 +16,10 @@ module.exports = function (env) {
   // the relative path of the assets inside the distribution bundle
   const ASSET_PATH = 'assets';
 
+  const customSettingsScreenSrc = path.resolve(PROJECT_ROOT_PATH, 'src', 'settings', 'javascript');
+  const useCustomSettingsSrc = fs.existsSync(customSettingsScreenSrc);
+  const entryPointFilename = useCustomSettingsSrc ? 'entrypoint.settings.js' : 'entrypoint.js';
+
   const extractCssPlugin = new dpat.Webpack.ExtractTextPlugin({ filename: '[name].css', publicPath: `/${ASSET_PATH}/`, allChunks: true });
 
   const configParts = [{}];
@@ -23,7 +27,7 @@ module.exports = function (env) {
     devtool: DEBUG ? 'source-map' : false,
     entry: {
       install: [
-        path.resolve(PROJECT_ROOT_PATH, 'src/webpack/entrypoint.js')
+        path.resolve(PROJECT_ROOT_PATH, 'src', 'webpack', entryPointFilename)
       ],
       // 'install-vendor' bundle is create by CommonsChunkPlugin
     },
@@ -36,22 +40,19 @@ module.exports = function (env) {
         {
           test: /\.jsx?$/,
           loader: 'babel-loader',
-          include: [
-            path.resolve(PROJECT_ROOT_PATH, 'src/main/javascript'),
-            path.resolve(PROJECT_ROOT_PATH, 'node_modules', '@deskpro', 'apps-sdk-core'),
-            path.resolve(PROJECT_ROOT_PATH, 'node_modules', 'uniforms', 'src'),
-            path.resolve(PROJECT_ROOT_PATH, 'node_modules', 'uniforms-unstyled', 'src')
-          ].map(path => fs.realpathSync(path)),
+           include: [
+              path.resolve(PROJECT_ROOT_PATH, 'src/main/javascript'),
+              useCustomSettingsSrc ? path.resolve(PROJECT_ROOT_PATH, 'src/settings/javascript') : null,
+           ].filter(x => !!x).map(path => fs.realpathSync(path)),
           options: babelOptions
         },
         {
           test: /\.css$/,
-          use: extractCssPlugin.extract({ use: ['style-loader', 'css-loader'] })
+          loader: extractCssPlugin.extract({ use: ['style-loader', 'css-loader'] })
         },
         {
           test: /\.scss$/,
-          include: [ path.resolve(PROJECT_ROOT_PATH, 'src/main/sass') ],
-          loader: extractCssPlugin.extract({ use: ['css-loader', 'sass-loader'] })
+          loader: extractCssPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'sass-loader'] })
         },
 
         { test: /\.(png|jpg)$/, loader: 'url-loader', options: { limit: 15000 } },
