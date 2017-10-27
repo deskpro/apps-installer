@@ -71,9 +71,12 @@ export class AppInstallerApp extends React.Component
       installPromise = service.update({ manifest, appId, instanceId, settings, onProgress });
     }
 
-    installPromise.then(() => {
-      this.props.dpapp.emit(onInstallStatus, { status: 'success', manifest });
-    });
+    const onStatus = (err) => {
+      const status = err ? 'error' : 'status';
+      this.props.dpapp.emit(onInstallStatus, { status, manifest });
+    };
+
+    return installPromise.then(() => ({ onStatus }));
   }
 
   render()
@@ -85,13 +88,13 @@ export class AppInstallerApp extends React.Component
     }
 
     if (screen === 'settings') {
-      const { installer:Installer } = this.props;
+      const { installer:ScreenSettings } = this.props;
       const { manifest, assetEndpoint } = this.state;
       const settings = JSON.parse(JSON.stringify(manifest.settings));
 
       return (
         <PageApp icon={`${assetEndpoint}/icon.png`} description={manifest.description} title={manifest.title} version={manifest.appVersion}>
-          <Installer install={this.installApp.bind(this)} settings={settings} settingsForm={UniformsSettingsForm}/>
+          <ScreenSettings dpapp={this.props.dpapp} install={this.installApp.bind(this)} settings={settings} settingsForm={UniformsSettingsForm}/>
         </PageApp>
       );
     }

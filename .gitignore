@@ -41,3 +41,8 @@ lib
 # IDE files
 .idea
 *.iml
+
+# custom installer
+
+src/settings
+

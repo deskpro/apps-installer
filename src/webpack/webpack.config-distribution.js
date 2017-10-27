@@ -12,19 +12,13 @@ module.exports = function (env) {
   );
 
   const resources = dpat.Resources.copyDescriptors(buildManifest, PROJECT_ROOT_PATH);
-  const bundlePackages = dpat.BuildUtils
-    .bundlePackages(PROJECT_ROOT_PATH, 'devDependencies')
-    .concat([
-      '@deskpro/react-components',
-      '@deskpro/apps-sdk-core',
-      'simpl-schema',
-      'uniforms',
-      'uniforms-unstyled'
-    ]);
-
   const babelOptions = dpat.Babel.resolveOptions(PROJECT_ROOT_PATH, { babelrc: false });
   // the relative path of the assets inside the distribution bundle
   const ASSET_PATH = 'assets';
+
+  const customSettingsScreenSrc = path.resolve(PROJECT_ROOT_PATH, 'src', 'settings', 'javascript');
+  const useCustomSettingsSrc = fs.existsSync(customSettingsScreenSrc);
+  const entryPointFilename = useCustomSettingsSrc ? 'entrypoint.settings.js' : 'entrypoint.js';
 
   const extractCssPlugin = new dpat.Webpack.ExtractTextPlugin({ filename: '[name].css', publicPath: `/${ASSET_PATH}/`, allChunks: true });
 
@@ -32,8 +26,10 @@ module.exports = function (env) {
   configParts.push({
     devtool: DEBUG ? 'source-map' : false,
     entry: {
-      install: [ path.resolve(PROJECT_ROOT_PATH, 'src/webpack/entrypoint.js') ],
-      'install-vendor': bundlePackages
+      install: [
+        path.resolve(PROJECT_ROOT_PATH, 'src', 'webpack', entryPointFilename)
+      ],
+      // 'install-vendor' bundle is create by CommonsChunkPlugin
     },
     externals: {
       'react': 'React',
@@ -44,22 +40,19 @@ module.exports = function (env) {
         {
           test: /\.jsx?$/,
           loader: 'babel-loader',
-          include: [
-            path.resolve(PROJECT_ROOT_PATH, 'src/main/javascript'),
-            path.resolve(PROJECT_ROOT_PATH, 'node_modules', '@deskpro', 'apps-sdk-core'),
-            path.resolve(PROJECT_ROOT_PATH, 'node_modules', 'uniforms', 'src'),
-            path.resolve(PROJECT_ROOT_PATH, 'node_modules', 'uniforms-unstyled', 'src')
-          ].map(path => fs.realpathSync(path)),
+           include: [
+              path.resolve(PROJECT_ROOT_PATH, 'src/main/javascript'),
+              useCustomSettingsSrc ? path.resolve(PROJECT_ROOT_PATH, 'src/settings/javascript') : null,
+           ].filter(x => !!x).map(path => fs.realpathSync(path)),
           options: babelOptions
         },
         {
           test: /\.css$/,
-          use: extractCssPlugin.extract({ use: ['style-loader', 'css-loader'] })
+          loader: extractCssPlugin.extract({ use: ['style-loader', 'css-loader'] })
         },
         {
           test: /\.scss$/,
-          include: [ path.resolve(PROJECT_ROOT_PATH, 'src/main/sass') ],
-          loader: extractCssPlugin.extract({ use: ['css-loader', 'sass-loader'] })
+          loader: extractCssPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'sass-loader'] })
         },
 
         { test: /\.(png|jpg)$/, loader: 'url-loader', options: { limit: 15000 } },
@@ -91,8 +84,20 @@ module.exports = function (env) {
 
       // replace a standard webpack chunk hashing with custom (md5) one
       new dpat.Webpack.WebpackChunkHash(),
+
       // vendor libs + extracted manifest
-      new dpat.Webpack.optimize.CommonsChunkPlugin({ name: ['install-vendor', 'install-manifest'], minChunks: Infinity }),
+      new dpat.Webpack.optimize.CommonsChunkPlugin({
+        name: ['install-vendor'],
+        minChunks: function (module) {
+          // this assumes your vendor imports exist in the node_modules directory
+          return module.context && module.context.indexOf("node_modules") !== -1;
+        }
+      }),
+      new dpat.Webpack.optimize.CommonsChunkPlugin({
+        name: ['install-manifest'],
+        minChunks: Infinity
+      }),
+
       // export map of chunks that will be loaded by the extracted manifest
       new dpat.Webpack.ChunkManifestPlugin({ filename: 'install-manifest.json', manifestVariable: 'webpackManifest', inlineManifest: false }),
       // mapping of all source file names to their corresponding output file

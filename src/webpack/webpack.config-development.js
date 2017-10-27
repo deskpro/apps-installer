@@ -13,20 +13,15 @@ module.exports = function (env)
   );
 
   const resources = dpat.Resources.copyDescriptors(buildManifest, PROJECT_ROOT_PATH);
-  const bundlePackages = dpat.BuildUtils.bundlePackages(PROJECT_ROOT_PATH, 'devDependencies')
-    .concat([
-      '@deskpro/react-components',
-      '@deskpro/apps-sdk-core',
-      'simpl-schema',
-      'uniforms',
-      'uniforms-unstyled'
-    ]);
   const babelOptions = dpat.Babel.resolveOptions(PROJECT_ROOT_PATH, { babelrc: false });
 
   // emulate the Files API path which is used by deskpro to fetch the app files
   const FILES_API_PATH = `v${buildManifest.getAppVersion()}/files`;
   // the relative path of the assets inside the distribution bundle
   const DISTRIBUTION_ASSET_PATH = 'assets';
+
+  const customSettingsScreenSrc = path.resolve(PROJECT_ROOT_PATH, 'src', 'settings', 'javascript');
+  const entryPointFilename = fs.existsSync(customSettingsScreenSrc) ? 'entrypoint.settings.js' : 'entrypoint.js';
 
   const extractCssPlugin = new dpat.Webpack.ExtractTextPlugin({
     filename: '[name].css',
@@ -58,9 +53,9 @@ module.exports = function (env)
     entry: {
       install: [
         `webpack-dev-server/client?http://localhost:31080`,
-        path.resolve(PROJECT_ROOT_PATH, 'src/webpack/entrypoint.js')
+        path.resolve(PROJECT_ROOT_PATH, 'src', 'webpack', entryPointFilename)
       ],
-      'install-vendor': bundlePackages
+      // 'install-vendor' bundle is create by CommonsChunkPlugin
     },
     module: {
       loaders: [
@@ -69,10 +64,8 @@ module.exports = function (env)
           loader: 'babel-loader',
           include: [
             path.resolve(PROJECT_ROOT_PATH, 'src/main/javascript'),
-            path.resolve(PROJECT_ROOT_PATH, 'node_modules', '@deskpro', 'apps-sdk-core'),
-            path.resolve(PROJECT_ROOT_PATH, 'node_modules', 'uniforms', 'src'),
-            path.resolve(PROJECT_ROOT_PATH, 'node_modules', 'uniforms-unstyled', 'src')
-          ].map(path => fs.realpathSync(path)),
+            customSettingsScreenSrc ? path.resolve(PROJECT_ROOT_PATH, 'src/settings/javascript') : null,
+          ].filter(x => !!x).map(path => fs.realpathSync(path)),
           options: babelOptions
         },
         {
@@ -101,7 +94,15 @@ module.exports = function (env)
     plugins: [
       extractCssPlugin,
 
-      new dpat.Webpack.optimize.CommonsChunkPlugin({name: ['install-vendor'], minChunks: Infinity}),
+      // vendor libs + extracted manifest
+      new dpat.Webpack.optimize.CommonsChunkPlugin({
+        name: ['install-vendor'],
+        minChunks: function (module) {
+          // this assumes your vendor imports exist in the node_modules directory
+          return module.context && module.context.indexOf("node_modules") !== -1;
+        }
+      }),
+
       new dpat.Webpack.NamedModulesPlugin(),
 
       new dpat.Webpack.CopyWebpackPlugin(resources, { debug: true, copyUnmodified: true }),

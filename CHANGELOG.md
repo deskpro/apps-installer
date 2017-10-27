@@ -4,6 +4,10 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+### Added
+
+ - settings screen receives the dp app instance
+
 ## [0.3.0][] - 2017-10-24
 
 ### Changes

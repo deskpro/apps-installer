@@ -12,7 +12,7 @@ export class ScreenSettingsDefault extends React.Component
   onSettings(settings)
   {
     const { install } = this.props;
-    install(settings);
+    install(settings).then(({ onStatus }) => onStatus);
   }
 
   render()
