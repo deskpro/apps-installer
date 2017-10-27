@@ -50,15 +50,13 @@
   },
   "devDependencies": {
     "@deskpro/apps-sdk-core": "1.0.0-beta.22",
+    "@deskpro/react-components": "1.1.0",
+    "@deskpro/apps-dpat": "0.9.1",
     "prop-types": "^15.5.10",
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
-    "@deskpro/react-components": "1.1.0",
-    "@deskpro/apps-dpat": "0.9.1",
-    "file-loader": "1.1.5",
     "jsdom": "11.2.0",
     "react-test-renderer": "15.6.1",
-    "url-loader": "0.6.2",
     "changelog-verify": "1.0.4",
     "version-changelog": "2.1.0"
   },
