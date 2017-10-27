@@ -7,7 +7,6 @@ This project is following [Semantic Versioning](http://semver.org)
 ### Added
 
  - settings screen receives the dp app instance
- - application can be installed as a dependency and used as a plugin
 
 ## [0.3.0][] - 2017-10-24
 
