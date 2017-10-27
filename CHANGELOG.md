@@ -4,6 +4,10 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+### Changed
+
+ - upgrade the version of @deskpro/apps-sdk-core
+
 ## [0.3.1][] - 2017-10-27
 
 ### Added
