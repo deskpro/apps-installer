@@ -4,6 +4,10 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+### Added
+
+ - allow sources from github to be installed via npm 
+
 ## [0.3.2][] - 2017-10-27
 
 ### Changed
