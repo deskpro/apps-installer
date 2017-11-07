@@ -2,10 +2,11 @@ const path = require('path');
 const fs = require('fs');
 
 const dpat = require('@deskpro/apps-dpat');
+const projectPath = path.resolve(__dirname, '../../');
 
 module.exports = function (env)
 {
-  const PROJECT_ROOT_PATH = env && env.DP_PROJECT_ROOT ? env.DP_PROJECT_ROOT : path.resolve(__dirname, '../../');
+  const PROJECT_ROOT_PATH = env && env.DP_PROJECT_ROOT ? env.DP_PROJECT_ROOT : projectPath;
 
   const buildManifest = new dpat.BuildManifest(
     PROJECT_ROOT_PATH,
@@ -99,7 +100,10 @@ module.exports = function (env)
         name: ['install-vendor'],
         minChunks: function (module) {
           // this assumes your vendor imports exist in the node_modules directory
-          return module.context && module.context.indexOf("node_modules") !== -1;
+          return module.context
+            && module.context.substr(0, projectPath) === projectPath
+            && module.context.indexOf("node_modules") !== -1
+          ;
         }
       }),
 

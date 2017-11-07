@@ -3,8 +3,9 @@ node_js:
   - '6'
 before_install:
   - npm install -g npm@5.3.0
+  - mv .npmignore.dist ./.npmignore
 install:
-  - npm install --no-optional
+  - npm install --no-optional --no-update-dependencies
 script:
   - npm test
 before_deploy: npm run package
