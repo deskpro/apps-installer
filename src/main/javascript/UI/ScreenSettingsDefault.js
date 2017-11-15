@@ -24,15 +24,15 @@ export class ScreenSettingsDefault extends React.Component
       return (
         <div className={'settings'}>
           <SettingsForm settings={settings} ref={ref => formRef = ref} onSubmit={this.onSettings.bind(this)} />
-          <button className={'btn-install'} onClick={() => formRef.submit()}>Install App</button>
+          <button className={'btn-action'} onClick={() => formRef.submit()}>Update Settings</button>
         </div>
       );
     }
 
     return (
       <div className={'no-settings'}>
-        <p>Click the Install button below to begin the installation.</p>
-        <button className={'btn-install'} onClick={install.bind(null, [])}>Install App</button>
+        <p>Click the button below to finish the installation.</p>
+        <button className={'btn-action'} onClick={install.bind(null, [])}>Finish Install</button>
       </div>
     );
   }
