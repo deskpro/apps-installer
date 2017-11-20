@@ -4,6 +4,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+## [0.4.0][] - 2017-11-20
+
 ### Added
 
  - allow update of settings
@@ -78,7 +80,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 
 
-[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v0.3.3...HEAD
+[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/DeskproApps/app-installer/compare/v0.3.3...v0.4.0
 [0.3.3]: https://github.com/DeskproApps/app-installer/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/DeskproApps/app-installer/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/DeskproApps/app-installer/compare/v0.3.0...v0.3.1
