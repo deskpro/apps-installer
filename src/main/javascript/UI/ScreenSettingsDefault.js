@@ -4,36 +4,34 @@ import PropTypes from 'prop-types';
 export class ScreenSettingsDefault extends React.Component
 {
   static propTypes = {
-    install: PropTypes.func.isRequired,
+    finishInstall: PropTypes.func.isRequired,
+    installType: PropTypes.string.isRequired,
     settings: PropTypes.array.isRequired,
+    values: PropTypes.array.isRequired,
     settingsForm: PropTypes.func.isRequired
   };
 
   onSettings(settings)
   {
-    const { install } = this.props;
-    install(settings).then(({ onStatus }) => onStatus);
+    const { finishInstall } = this.props;
+    finishInstall(settings).then(({ onStatus }) => onStatus);
   }
 
   render()
   {
-    const { settings, install, settingsForm: SettingsForm } = this.props;
+    const { settings, values, finishInstall, settingsForm: SettingsForm } = this.props;
 
     if (settings.length) {
       let formRef;
       return (
         <div className={'settings'}>
-          <SettingsForm settings={settings} ref={ref => formRef = ref} onSubmit={this.onSettings.bind(this)} />
-          <button className={'btn-install'} onClick={() => formRef.submit()}>Install App</button>
+          <SettingsForm settings={settings} values={values} ref={ref => formRef = ref}  />
+          <button className={'btn-action'} onClick={() => formRef.submit()}>Update Settings</button>
         </div>
       );
     }
 
-    return (
-      <div className={'no-settings'}>
-        <p>Click the Install button below to begin the installation.</p>
-        <button className={'btn-install'} onClick={install.bind(null, [])}>Install App</button>
-      </div>
-    );
+    finishInstall(null).then(({ onStatus }) => onStatus());
+    return null;
   }
 }

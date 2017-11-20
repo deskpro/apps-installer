@@ -8,7 +8,7 @@ test('createCustomFields sends the expected request when given valid arguments',
     put: jest.fn()
   };
 
-  new AppInstallerService({ api }).createCustomFields(
+  new AppInstallerService({ api }).addCustomFields(
     12,
     {
       customFields: [

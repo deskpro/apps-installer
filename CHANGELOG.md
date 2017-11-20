@@ -4,6 +4,14 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+### Added
+
+ - allow update of settings
+
+### Changed
+
+ - application starts with the settings screen
+
 ## [0.3.3][] - 2017-11-07
 
 ### Added

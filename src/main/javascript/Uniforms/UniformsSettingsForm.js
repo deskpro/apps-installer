@@ -10,6 +10,7 @@ export class UniformsSettingsForm extends React.Component
 {
   static propTypes = {
     settings: PropTypes.array.isRequired,
+    values: PropTypes.array.isRequired,
     onSubmit: PropTypes.func.isRequired
   };
 
@@ -30,9 +31,9 @@ export class UniformsSettingsForm extends React.Component
 
   render()
   {
-    const { settings, onSubmit } = this.props;
+    const { settings, values, onSubmit } = this.props;
     const schema = UniformsSettingsTransformer.defsToSchemaBridge(settings);
 
-    return (<AutoForm submitField={Empty} ref={ref => this.formRef = ref} schema={schema} onSubmit={onSubmit}/>);
+    return (<AutoForm submitField={Empty} ref={ref => this.formRef = ref} schema={schema} model={values} onSubmit={onSubmit}/>);
   }
 }
