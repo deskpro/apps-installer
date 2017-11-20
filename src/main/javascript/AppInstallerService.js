@@ -59,45 +59,26 @@ export class AppInstallerService
   }
 
   /**
-   * @param {{appName, customFields}} manifest
-   * @param {string} instanceId
-   * @param {string} appId
-   * @param {{}} settings
-   * @param {function} onProgress
-   * @return {Promise.<*>}
+   * @param instanceId
+   * @param {Array} changes
+   * @return {Array}
    */
-  firstTimeInstall({manifest, instanceId, appId, settings, onProgress})
+  createInstallTasks(instanceId, changes)
   {
-    return this.saveSettings(instanceId, appId, settings)
-      .then(() => {
-        onProgress(33);
-        return this.createCustomFields(instanceId, manifest)
-      })
-      .then(() => {
-        onProgress(66);
-        return this.setInstalled(instanceId, { status: true})
-      })
-      .then(() => onProgress(100))
-    ;
-  }
+    const tasks = [];
+    if ( 0 === changes.length ) {
+      return tasks;
+    }
 
-  /**
-   * @param {{}} manifest
-   * @param {string} instanceId
-   * @param {string} appId
-   * @param {{}} settings
-   * @param {function} onProgress
-   * @return {Promise.<*>}
-   */
-  update({manifest, instanceId, appId, settings, onProgress})
-  {
-    return this.saveSettings(instanceId, appId, settings)
-      .then(() => {
-        onProgress(50);
-        return this.setInstalled(instanceId, { status: true})
-      })
-      .then(() => onProgress(100))
-      ;
+    const customFieldsAdditions = changes.filter(change => change.type === 'add' && change.module === 'customFields')
+      .map(change => change.value)
+    ;
+    if (customFieldsAdditions.length) {
+      tasks.push(() => this.addCustomFields(instanceId, { customFields: customFieldsAdditions }))
+    }
+
+    tasks.push(() => this.setInstalled(instanceId, { status: true}));
+    return tasks;
   }
 
   /**
@@ -126,7 +107,7 @@ export class AppInstallerService
    * @param {[]} customFields
    * @return {Promise.<[]>}
    */
-  createCustomFields(instanceId, { customFields })
+  addCustomFields(instanceId, { customFields })
   {
     if (customFields instanceof Array && customFields.length > 0) {
       const url = `batch`;

@@ -5,6 +5,16 @@ import {UniformsSettingsForm} from './Uniforms';
 import {ScreenInstall, PageApp} from './UI';
 import {AppInstallerService} from './AppInstallerService';
 import {AppInfoService} from './AppInfoService';
+import {selectDefinitionsFromManifest} from './Setting';
+
+function delay(interval, f)
+{
+  if (window && typeof window.setTimeout === 'function') {
+    window.setTimeout(f, interval);
+  } else {
+    f();
+  }
+}
 
 export class AppInstallerApp extends React.Component
 {
@@ -22,17 +32,34 @@ export class AppInstallerApp extends React.Component
   {
     const { entityId: appId } = this.props.dpapp.context;
     const {restApi: api, instanceId} = this.props.dpapp;
+    const { storage } = this.props.dpapp;
+    const { installType } = this.props.dpapp.context.toJS();
 
     const appInfoService = new AppInfoService();
-    appInfoService.loadManifest({api, instanceId})
+    appInfoService.loadManifest({api, appId})
       .then(manifest => {
-        return appInfoService.determineAssetEndpoint({api, appId, appVersion: manifest.appVersion})
-          .then(assetEndpoint => ({manifest, assetEndpoint}))
+        return appInfoService.determineAssetEndpoint({api, appId, appVersion: manifest.appVersion}).then(assetEndpoint => ({manifest, assetEndpoint}));
+      })
+      .then(state => { // load setting values
+        if (installType === 'update') {
+          return appInfoService.loadSettingValues(state.manifest, storage).then(settings => ({ ...state, settings }));
+        }
+        return state;
+      })
+      .then(state => { //load changes
+        let loadChangesPromise;
+
+        if (installType === 'update') { // if it is an update and the instance is installed, just update settings
+          loadChangesPromise = appInfoService.getInstanceInstallStatus({ api, instanceId }).then(isInstalled => !isInstalled);
+        } else {
+          loadChangesPromise = Promise.resolve(true);
+        }
+        return loadChangesPromise.then(loadChanges => loadChanges ? appInfoService.loadManifestChanges({api, appId}): [] )
+          .then(changes => ({ ...state, changes }))
         ;
       })
-      .then(state => appInfoService.determineInstallType({api, instanceId}).then(installType => ({...state, installType})))
-      .then(state => ({ error:null,  screen: 'settings', ...state}))
-      .catch(response => { return { error: 'error' }; })
+      .then(state => ({ error:null,  route: '/settings', ...state}))
+      .catch(error => ({ route: '/error', error }))
       .then(state => this.setState(state))
     ;
   }
@@ -41,10 +68,12 @@ export class AppInstallerApp extends React.Component
     this.state = {
       manifest:  null,
       error:     null,
-      screen:    'loading',
+      route:    '/loading',
       installProgress: 0,
+      installSteps: 1,
       assetEndpoint: '',
-      installType: 'first-time',
+      settings: {},
+      changes: []
     };
   }
 
@@ -52,64 +81,97 @@ export class AppInstallerApp extends React.Component
    * @param {{}} settings
    * @return {Promise.<*>}
    */
-  installApp(settings)
+  onSaveSettings = (settings) =>
   {
-    const { onInstallStatus } = this.props.dpapp.context.toJS();
-    const { restApi } = this.props.dpapp;
-    const { manifest, installType } = this.state;
-    const { appId, instanceId } = this.props.dpapp;
-
-    const onProgress = (installProgress) => this.setState({ screen: 'install', installProgress });
-    onProgress(0);
-
-    const service = new AppInstallerService({ api: restApi });
-    let installPromise;
-
-    if (installType === 'first-time') {
-      installPromise =  service.firstTimeInstall({ manifest, appId, instanceId, settings, onProgress});
-    } else {
-      installPromise = service.update({ manifest, appId, instanceId, settings, onProgress });
+    this.setState({ route: '/install' });
+    if (!settings) {
+      return Promise.resolve({ onStatus: this.onAfterSaveSettings });
     }
 
-    const onStatus = (err) => {
-      const status = err ? 'error' : 'status';
-      this.props.dpapp.emit(onInstallStatus, { status, manifest });
-    };
+    const { restApi, appId, instanceId } = this.props.dpapp;
+    const service = new AppInstallerService({ api: restApi });
 
-    return installPromise.then(() => ({ onStatus }));
-  }
+    return service.saveSettings(instanceId, appId, settings)
+      .then(() => ({ onStatus: this.onAfterSaveSettings }))
+    ;
+  };
+
+  onAfterSaveSettings = (err) =>
+  {
+    const status = err ? 'error' : 'success';
+
+    const { onInstallStatus } = this.props.dpapp.context.toJS();
+    const { manifest } = this.state;
+    const { restApi, instanceId } = this.props.dpapp;
+
+    const service = new AppInstallerService({ api: restApi });
+    const installTasks  = service.createInstallTasks(instanceId, this.state.changes);
+    const installSteps  = 1 + installTasks.length;
+    let installProgress = 1;
+
+    this.setState({ installProgress, installSteps });
+
+    //execute each task sequentially
+    let taskPromise = Promise.resolve(installProgress);
+    for (const task of installTasks) {
+      taskPromise = taskPromise.then(progress => {
+        return task().then(() => {
+          const installProgress = progress + 1;
+          this.setState({ installProgress });
+          return installProgress;
+        });
+      });
+    }
+
+    taskPromise.then(installProgress => {
+      this.setState({ installProgress });
+      delay(500, () => this.props.dpapp.emit(onInstallStatus, { status, manifest }));
+    });
+  };
 
   render()
   {
-    const { screen } = this.state;
+    const { route } = this.state;
 
-    if (screen === 'error') {
+    if (route === '/error') {
       return (<div><p>The app installer encountered an error</p></div>);
     }
 
-    if (screen === 'settings') {
+    if (route === '/settings') {
+
+      const { manifest } = this.state;
+      const definitions = selectDefinitionsFromManifest(manifest);
+
       const { installer:ScreenSettings } = this.props;
-      const { manifest, assetEndpoint } = this.state;
-      const settings = JSON.parse(JSON.stringify(manifest.settings));
+      const { assetEndpoint, settings } = this.state;
+      const { installType } = this.props.dpapp.context.toJS();
 
       return (
         <PageApp icon={`${assetEndpoint}/icon.png`} description={manifest.description} title={manifest.title} version={manifest.appVersion}>
-          <ScreenSettings dpapp={this.props.dpapp} install={this.installApp.bind(this)} settings={settings} settingsForm={UniformsSettingsForm}/>
+          <ScreenSettings
+            dpapp={this.props.dpapp}
+            installType={installType}
+            finishInstall={this.onSaveSettings}
+            settings={definitions}
+            values={settings}
+            settingsForm={UniformsSettingsForm}
+          />
         </PageApp>
       );
     }
 
-    if (screen === 'install') {
-      const {installProgress, manifest, assetEndpoint} = this.state;
+    if (route === '/install') {
+      const {installProgress, installSteps, manifest, assetEndpoint} = this.state;
+      const progress = Math.round(100 * installProgress / installSteps);
 
       return (
         <PageApp icon={`${assetEndpoint}/icon.png`} description={manifest.description} title={manifest.title} version={manifest.appVersion}>
-          <ScreenInstall progress={installProgress}/>
+          <ScreenInstall progress={progress}/>
         </PageApp>
       );
     }
 
-    if (screen === 'loading') {
+    if (route === '/loading') {
       return (<p>Loading...</p>)
     }
 

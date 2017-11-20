@@ -10,7 +10,7 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ### Changed
 
- - application starts with the update settings screen
+ - application starts with the settings screen
 
 ## [0.3.3][] - 2017-11-07
 
