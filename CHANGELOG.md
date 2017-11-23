@@ -4,6 +4,10 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+### Fixed
+
+ - update settings form from the default settings installer not submitting values 
+
 ## [0.4.1][] - 2017-11-23
 
 ### Fixed
