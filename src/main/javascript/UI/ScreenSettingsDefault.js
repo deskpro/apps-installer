@@ -11,11 +11,11 @@ export class ScreenSettingsDefault extends React.Component
     settingsForm: PropTypes.func.isRequired
   };
 
-  onSettings(settings)
+  onSettings = (settings) =>
   {
     const { finishInstall } = this.props;
     finishInstall(settings).then(({ onStatus }) => onStatus);
-  }
+  };
 
   render()
   {
@@ -25,7 +25,7 @@ export class ScreenSettingsDefault extends React.Component
       let formRef;
       return (
         <div className={'settings'}>
-          <SettingsForm settings={settings} values={values} ref={ref => formRef = ref}  />
+          <SettingsForm settings={settings} values={values} ref={ref => formRef = ref} onSubmit={this.onSettings} />
           <button className={'btn-action'} onClick={() => formRef.submit()}>Update Settings</button>
         </div>
       );
