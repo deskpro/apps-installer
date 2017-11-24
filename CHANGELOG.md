@@ -4,6 +4,10 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+### Fixed
+
+ - installer fails to mark the app as installed on first time install
+
 ## [0.4.1][] - 2017-11-23
 
 ### Fixed
