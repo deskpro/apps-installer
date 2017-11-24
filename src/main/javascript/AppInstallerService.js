@@ -66,13 +66,8 @@ export class AppInstallerService
   createInstallTasks(instanceId, changes)
   {
     const tasks = [];
-    if ( 0 === changes.length ) {
-      return tasks;
-    }
+    const customFieldsAdditions = changes.filter(change => change.type === 'add' && change.module === 'customFields').map(change => change.value);
 
-    const customFieldsAdditions = changes.filter(change => change.type === 'add' && change.module === 'customFields')
-      .map(change => change.value)
-    ;
     if (customFieldsAdditions.length) {
       tasks.push(() => this.addCustomFields(instanceId, { customFields: customFieldsAdditions }))
     }

@@ -4,6 +4,18 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+## [0.4.2][] - 2017-11-24
+
+### Fixed
+
+ - installer fails to mark the app as installed on first time install
+
+## [0.4.1][] - 2017-11-23
+
+### Fixed
+
+ - update settings form from the default settings installer not submitting values 
+
 ## [0.4.1][] - 2017-11-23
 
 ### Fixed
@@ -86,7 +98,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 
 
-[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v0.4.2...HEAD
+[0.4.2]: https://github.com/DeskproApps/app-installer/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/DeskproApps/app-installer/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/DeskproApps/app-installer/compare/v0.3.3...v0.4.0
 [0.3.3]: https://github.com/DeskproApps/app-installer/compare/v0.3.2...v0.3.3
