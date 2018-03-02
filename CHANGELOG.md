@@ -4,6 +4,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+## [0.4.3][] - 2018-03-02
+
  - updates to latest react-components version
 
 ## [0.4.2][] - 2017-11-24
@@ -100,7 +102,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 
 
-[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v0.4.2...HEAD
+[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v0.4.3...HEAD
+[0.4.3]: https://github.com/DeskproApps/app-installer/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/DeskproApps/app-installer/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/DeskproApps/app-installer/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/DeskproApps/app-installer/compare/v0.3.3...v0.4.0
