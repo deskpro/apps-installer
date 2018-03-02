@@ -4,6 +4,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+ - updates to latest react-components version
+
 ## [0.4.2][] - 2017-11-24
 
 ### Fixed
