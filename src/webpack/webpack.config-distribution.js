@@ -6,6 +6,7 @@ const projectPath = path.resolve(__dirname, '../../');
 module.exports = function (env) {
   const PROJECT_ROOT_PATH = env && env.DP_PROJECT_ROOT ? env.DP_PROJECT_ROOT : projectPath;
   const DEBUG = env && env.NODE_ENV === 'development';
+  const ENVIRONMENT =  env && env.NODE_ENV ? env.NODE_ENV : 'production';
 
   const buildManifest = new dpat.BuildManifest(
     PROJECT_ROOT_PATH,
@@ -74,7 +75,11 @@ module.exports = function (env) {
       extractCssPlugin,
       new dpat.Webpack.IgnorePlugin(/meteor|graphql/),
 
-      new dpat.Webpack.DefinePlugin({ DEBUG: DEBUG }),
+      new dpat.Webpack.DefinePlugin({
+        DEBUG: DEBUG,
+        DPAPP_MANIFEST: JSON.stringify(buildManifest.getContent()),
+        'process.env.NODE_ENV': JSON.stringify(ENVIRONMENT)
+      }),
 
       // for stable builds, in production we replace the default module index with the module's content hashe
       new dpat.Webpack.HashedModuleIdsPlugin(),
@@ -92,7 +97,7 @@ module.exports = function (env) {
         minChunks: function (module) {
           // this assumes your vendor imports exist in the node_modules directory
           return module.context
-            && module.context.substr(0, projectPath) === projectPath
+            && module.context.substr(0, projectPath.length) === projectPath
             && module.context.indexOf("node_modules") !== -1
           ;
         }

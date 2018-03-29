@@ -4,6 +4,15 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+### Changed
+
+    - upgrade to @deskpro/apps-sdk-core version 1.0.0-beta.29
+    - upgrade to @deskpro/apps-dpat version 0.10.3
+
+### Fixed
+
+    - `install-vendor.js` bundle was not generated anymore
+
 ## [0.4.3][] - 2018-03-02
 
  - updates to latest react-components version
