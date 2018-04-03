@@ -5,7 +5,6 @@ const projectPath = path.resolve(__dirname, '../../');
 
 module.exports = function (env) {
   const PROJECT_ROOT_PATH = env && env.DP_PROJECT_ROOT ? env.DP_PROJECT_ROOT : projectPath;
-  const PARENT_ROOT_PATH = path.resolve(PROJECT_ROOT_PATH, '../../..');
   const DEBUG = env && env.NODE_ENV === 'development';
   const ENVIRONMENT =  env && env.NODE_ENV ? env.NODE_ENV : 'production';
 
@@ -45,7 +44,6 @@ module.exports = function (env) {
           loader: 'babel-loader',
            include: [
               path.resolve(PROJECT_ROOT_PATH, 'src/main/javascript'),
-              path.resolve(PARENT_ROOT_PATH, 'src'),
               useCustomSettingsSrc ? path.resolve(PROJECT_ROOT_PATH, 'src/settings/javascript') : null,
            ].filter(x => !!x).map(path => fs.realpathSync(path)),
           options: babelOptions
@@ -120,7 +118,7 @@ module.exports = function (env) {
       extensions: ['*', '.js', '.jsx', '.scss', '.css'],
       modules: [ "node_modules", dpat.path("node_modules"), path.join(PROJECT_ROOT_PATH, "node_modules") ],
       alias: {
-          '@app': path.resolve(PARENT_ROOT_PATH, 'src')
+          '@app': path.resolve(PROJECT_ROOT_PATH, 'src')
       }
     },
     resolveLoader: {
