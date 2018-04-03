@@ -1,6 +1,6 @@
 {
   "name": "@deskpro/apps-installer",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "allows Deskpro administrators to install applications",
   "main": "lib/main/javascript/index.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "deskpro apps"
   ],
   "author": {
-    "name": "DeskPRO Apps",
+    "name": "Deskpro Ltd.",
     "email": "apps@deskpro.com",
     "url": "https://www.deskpro.com"
   },
