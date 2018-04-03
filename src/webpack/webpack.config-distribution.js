@@ -3,8 +3,34 @@ const fs = require('fs');
 const dpat = require('@deskpro/apps-dpat');
 const projectPath = path.resolve(__dirname, '../../');
 
+/**
+ * @param installerDir
+ * @returns {string|null}
+ */
+function resolveAppRoot(installerDir)
+{
+  "use strict";
+  const parent = path.resolve(installerDir, '../');
+  const parentBasename = path.basename(parent);
+
+  if (parentBasename === 'target') { // packaging the default installer
+    return path.resolve(installerDir, '../../');
+  }
+
+  if (parentBasename === '@deskpro') { // packaging the default installer
+    return path.resolve(installerDir, '../../..');
+  }
+
+  return null;
+}
+
 module.exports = function (env) {
   const PROJECT_ROOT_PATH = env && env.DP_PROJECT_ROOT ? env.DP_PROJECT_ROOT : projectPath;
+  const APP_ROOT_PATH = resolveAppRoot(PROJECT_ROOT_PATH);
+  if (! APP_ROOT_PATH) {
+    console.log('failed to resolve the path to the application, @app alias will not work')
+  }
+
   const DEBUG = env && env.NODE_ENV === 'development';
   const ENVIRONMENT =  env && env.NODE_ENV ? env.NODE_ENV : 'production';
 
@@ -44,6 +70,7 @@ module.exports = function (env) {
           loader: 'babel-loader',
            include: [
               path.resolve(PROJECT_ROOT_PATH, 'src/main/javascript'),
+              path.resolve(APP_ROOT_PATH, 'src/main/javascript'),
               useCustomSettingsSrc ? path.resolve(PROJECT_ROOT_PATH, 'src/settings/javascript') : null,
            ].filter(x => !!x).map(path => fs.realpathSync(path)),
           options: babelOptions
@@ -54,7 +81,8 @@ module.exports = function (env) {
         },
         {
           test: /\.scss$/,
-          loader: extractCssPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'sass-loader'] })
+          include: [ path.resolve(PROJECT_ROOT_PATH, 'src/main/sass') ],
+          loader: extractCssPlugin.extract({ use: ['css-loader', 'sass-loader'] }),
         },
 
         { test: /\.(png|jpg)$/, loader: 'url-loader', options: { limit: 15000 } },
@@ -96,10 +124,7 @@ module.exports = function (env) {
         name: ['install-vendor'],
         minChunks: function (module) {
           // this assumes your vendor imports exist in the node_modules directory
-          return module.context
-            && module.context.substr(0, projectPath.length) === projectPath
-            && module.context.indexOf("node_modules") !== -1
-          ;
+          return module.context && module.context.indexOf([projectPath, 'node_modules'].join(path.sep)) !== -1;
         }
       }),
       new dpat.Webpack.optimize.CommonsChunkPlugin({
@@ -118,7 +143,7 @@ module.exports = function (env) {
       extensions: ['*', '.js', '.jsx', '.scss', '.css'],
       modules: [ "node_modules", dpat.path("node_modules"), path.join(PROJECT_ROOT_PATH, "node_modules") ],
       alias: {
-          '@app': path.resolve(PROJECT_ROOT_PATH, 'src')
+        '@app': path.resolve((APP_ROOT_PATH ? APP_ROOT_PATH : "") , 'src')
       }
     },
     resolveLoader: {

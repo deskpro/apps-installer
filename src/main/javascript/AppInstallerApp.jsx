@@ -30,7 +30,7 @@ export class AppInstallerApp extends React.Component
 
   componentDidMount()
   {
-    const { entityId: appId } = this.props.dpapp.context;
+    const { id: appId } = this.props.dpapp.context.object;
     const {restApi: api, instanceId} = this.props.dpapp;
     const { storage } = this.props.dpapp;
     const { installType } = this.props.dpapp.context.toJS();
