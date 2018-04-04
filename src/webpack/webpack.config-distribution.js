@@ -70,7 +70,7 @@ module.exports = function (env) {
           loader: 'babel-loader',
            include: [
               path.resolve(PROJECT_ROOT_PATH, 'src/main/javascript'),
-              path.resolve(APP_ROOT_PATH, 'src/main/javascript'),
+              APP_ROOT_PATH ? path.resolve(APP_ROOT_PATH, 'src/main/javascript') : null,
               useCustomSettingsSrc ? path.resolve(PROJECT_ROOT_PATH, 'src/settings/javascript') : null,
            ].filter(x => !!x).map(path => fs.realpathSync(path)),
           options: babelOptions
