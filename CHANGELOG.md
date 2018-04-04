@@ -4,6 +4,12 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+## [0.4.5][] - 2018-04-04
+
+### Fixed
+
+    - packaging build step fails when `@app` webpack resolver alias is null
+
 ## [0.4.4][] - 2018-04-03
 
 ### Changed
@@ -113,7 +119,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 
 
-[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v0.4.4...HEAD
+[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v0.4.5...HEAD
+[0.4.5]: https://github.com/DeskproApps/app-installer/compare/v0.4.4...v0.4.5
 [0.4.4]: https://github.com/DeskproApps/app-installer/compare/v0.4.3...v0.4.4
 [0.4.3]: https://github.com/DeskproApps/app-installer/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/DeskproApps/app-installer/compare/v0.4.1...v0.4.2
