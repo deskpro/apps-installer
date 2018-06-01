@@ -4,6 +4,14 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+## [0.4.6][] - 2018-06-01
+
+### Changed
+
+    - upgrade to @deskpro/apps-sdk-core version 1.0.1
+    - upgrade to @deskpro/apps-dpat version 0.10.5
+    - upgrade to @deskpro/react-components version 1.3.24
+
 ## [0.4.5][] - 2018-04-04
 
 ### Fixed
@@ -119,7 +127,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 
 
-[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v0.4.5...HEAD
+[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v0.4.6...HEAD
+[0.4.6]: https://github.com/DeskproApps/app-installer/compare/v0.4.5...v0.4.6
 [0.4.5]: https://github.com/DeskproApps/app-installer/compare/v0.4.4...v0.4.5
 [0.4.4]: https://github.com/DeskproApps/app-installer/compare/v0.4.3...v0.4.4
 [0.4.3]: https://github.com/DeskproApps/app-installer/compare/v0.4.2...v0.4.3
