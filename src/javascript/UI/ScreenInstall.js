@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Progress, ProgressBar } from '@deskpro/react-components';
+import Progress from './Progress'
+import ProgressBar from './ProgressBar'
 
 export class ScreenInstall extends React.Component
 {

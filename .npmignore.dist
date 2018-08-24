@@ -1,5 +1,7 @@
 *
-!dist/*
-dist/app.zip
-!dist/html/*
-!dist/assets/*
+!lib/*
+!build/*
+build/app.zip
+!build/assets/*
+!build/docs/*
+!build/static/*
