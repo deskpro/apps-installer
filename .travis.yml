@@ -7,16 +7,14 @@ install:
   - NODE_ENV=dev yarn install
   - if [ ! -z "$UPLOAD_ARTIFACT" ]; then curl -sL https://raw.githubusercontent.com/travis-ci/artifacts/master/install | bash; fi
 script:
-  - yarn test --ci --resetMocks && CI=false yarn build
+  - yarn test --ci --resetMocks && CI=false yarn build && mv ./build/app.zip app.zip
 cache:
   yarn: true
   directories:
     - node_modules
 after_success:
-  - if [ ! -z "$UPLOAD_ARTIFACT" ] ; then artifacts upload --target-paths /${TRAVIS_REPO_SLUG}/${TRAVIS_BUILD_NUMBER}/NODE-${TRAVIS_NODE_VERSION} build/app.zip ; fi
+  - if [ ! -z "$UPLOAD_ARTIFACT" ] ; then artifacts upload --target-paths /${TRAVIS_REPO_SLUG}/${TRAVIS_BUILD_NUMBER}/NODE-${TRAVIS_NODE_VERSION} app.zip ; fi
   - if [ ! -z "$UPLOAD_ARTIFACT" ] && [ ! -z "$TRAVIS_PULL_REQUEST_SLUG" ] ; then echo "commenting on PRs is disabled ( npm run dpat -- travis pr-comment . --s3target /${TRAVIS_REPO_SLUG}/${TRAVIS_BUILD_NUMBER}/NODE-${TRAVIS_NODE_VERSION} )" ; fi
-before_deploy:
-  - mv build/app.zip app.zip
 deploy:
   - provider: releases
     api_key:
