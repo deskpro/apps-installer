@@ -1,7 +1,0 @@
-*
-!lib/*
-!build/*
-build/app.zip
-!build/assets/*
-!build/docs/*
-!build/static/*
