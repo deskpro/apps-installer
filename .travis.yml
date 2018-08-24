@@ -1,19 +1,25 @@
 language: node_js
 node_js:
-  - '6'
+  - '8'
 before_install:
-  - npm install -g npm@5.3.0
-  - mv .npmignore.dist ./.npmignore
+  - if [ ! -z "$ARTIFACTS_BUCKET" ] && [ ! -z "ARTIFACTS_KEY" ] && [ ! -z "ARTIFACTS_SECRET" ] ; then export UPLOAD_ARTIFACT=yes ; else echo artifact uploading is disabled; fi
 install:
-  - npm install --no-optional --no-update-dependencies
+  - NODE_ENV=dev yarn install
+  - if [ ! -z "$UPLOAD_ARTIFACT" ]; then curl -sL https://raw.githubusercontent.com/travis-ci/artifacts/master/install | bash; fi
 script:
-  - npm test
-before_deploy: npm run package
+  - yarn test --ci --resetMocks && CI=false yarn build
+cache:
+  yarn: true
+  directories:
+    - node_modules
+after_success:
+  - if [ ! -z "$UPLOAD_ARTIFACT" ] ; then artifacts upload --target-paths /${TRAVIS_REPO_SLUG}/${TRAVIS_BUILD_NUMBER}/NODE-${TRAVIS_NODE_VERSION} build/app.zip ; fi
+  - if [ ! -z "$UPLOAD_ARTIFACT" ] && [ ! -z "$TRAVIS_PULL_REQUEST_SLUG" ] ; then echo "commenting on PRs is disabled ( npm run dpat -- travis pr-comment . --s3target /${TRAVIS_REPO_SLUG}/${TRAVIS_BUILD_NUMBER}/NODE-${TRAVIS_NODE_VERSION} )" ; fi
 deploy:
   - provider: releases
     api_key:
       secure: PmpH4tvXGWQwPL3uZaxCop5B7Pkzh4HtaL2y3w1HlvW4+q6W53XlguboeEaPEO1agLiTq82hH8WGbbGEcDop+Y2QM3BuiVFMmcamoaw8YDOoZBJZRIkS5rH2uNkU6kKqDg3fBsO+ktsG7EX1MD1dVd2aOD/aDRTkWVauvX8kZ/WyoqYvKXnCjj/l/pVqBBviDNW7xNpQFd+9bvyw3I/aSj8nURVnjz8fHBYFeesPXU53GAxV3+Y9qxYPO6O98CMjObIK5MxP2Q9kGCznUMhgyIy8hIa1ZMvgxQfyx0tM8V7QycEjyeSkBWJoqUwZ2XQ0qUZ9NOvqD/WT0/tCGziO9DB8JQOTWPkrlVs6+JBJ64viSyMtemw+WteytNAY00Dfh8gTkZPGG5AZ19MRCQp0axeaSPWeztFjUG4Y2E2q4esXMgRt8Z/OP8bUFVuwly3K0gZrCrv/ioPh2fmii4rhDLOEx1l7f6SQJirxc0QMQy6hgxkaKqrGfwZjBEvcWPFzm6fspvK6Dw+Be1+kmJ2eq031pZchMUG+bEyn+bX89oCtU90Y+sIEExNVhKsFHUsBARi/FIePXlneZhUQ6hsXiaBAg7mgIXWezcYAZWG3gN2EX/ovUwu0ZXamHvrf5TqJGBl4fmMZV/XP0H5GRJ4d51OzqB+DUSWR2Ut5hhLOll0=
-    file: dist/app.zip
+    file: build/app.zip
     skip_cleanup: true
     on:
       repo: deskpro/apps-installer

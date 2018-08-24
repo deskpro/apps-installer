@@ -4,27 +4,26 @@
   "version": "1.0.0",
   "private": false,
   "dependencies": {
-    "@deskpro/apps-components": "^0.7.2",
-    "@deskpro/apps-react-scripts": "0.3.0",
     "@deskpro/apps-sdk": "^0.7.2",
     "changelog-verify": "^1.1.0",
     "classnames": "^2.2.6",
-    "cross-env": "^5.2.0",
-    "fs-extra": "^7.0.0",
-    "klaw-sync": "^4.0.0",
-    "node-sass": "^4.9.3",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "simpl-schema": "^1.5.3",
-    "uniforms": "^1.25.0",
-    "uniforms-unstyled": "^1.25.0",
-    "version-changelog": "^3.1.0"
+    "uniforms": "^1.25.0"
   },
   "devDependencies": {
+    "@deskpro/apps-react-scripts": "0.3.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "react-test-renderer": "^16.4.2"
+    "react-test-renderer": "^16.4.2",
+    "uniforms-unstyled": "^1.25.0",
+    "version-changelog": "^3.1.0",
+    "cross-env": "^5.2.0",
+    "fs-extra": "^7.0.0",
+    "klaw-sync": "^4.0.0",
+    "node-sass": "^4.9.3"
   },
   "homepage": ".",
   "scripts": {
@@ -39,7 +38,8 @@
     "eject": "react-scripts eject",
     "lint": "react-scripts eslint src test",
     "format": "react-scripts prettier --write \"{src,test}/**/*.js\"",
-    "format:check": "react-scripts prettier --list-different \"{src,test}/**/*.js\""
+    "format:check": "react-scripts prettier --list-different \"{src,test}/**/*.js\"",
+    "version": "version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md"
   },
   "description": "allows Deskpro administrators to install applications",
   "author": {

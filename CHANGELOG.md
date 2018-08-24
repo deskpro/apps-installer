@@ -4,6 +4,10 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+## [1.0.0][] - 2018-08-24
+
+ - use the new apps sdks
+
 ## [0.4.6][] - 2018-06-01
 
 ### Changed
@@ -127,7 +131,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 
 
-[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v0.4.6...HEAD
+[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/DeskproApps/app-installer/compare/v0.4.6...v1.0.0
 [0.4.6]: https://github.com/DeskproApps/app-installer/compare/v0.4.5...v0.4.6
 [0.4.5]: https://github.com/DeskproApps/app-installer/compare/v0.4.4...v0.4.5
 [0.4.4]: https://github.com/DeskproApps/app-installer/compare/v0.4.3...v0.4.4
