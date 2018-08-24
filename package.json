@@ -1,7 +1,7 @@
 {
   "name": "@deskpro/apps-installer",
   "main": "lib/javascript/index.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "dependencies": {
     "@deskpro/apps-sdk": "^0.7.2",
@@ -15,15 +15,15 @@
   },
   "devDependencies": {
     "@deskpro/apps-react-scripts": "0.3.0",
+    "cross-env": "^5.2.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "react-test-renderer": "^16.4.2",
-    "uniforms-unstyled": "^1.25.0",
-    "version-changelog": "^3.1.0",
-    "cross-env": "^5.2.0",
     "fs-extra": "^7.0.0",
     "klaw-sync": "^4.0.0",
-    "node-sass": "^4.9.3"
+    "node-sass": "^4.9.3",
+    "react-test-renderer": "^16.4.2",
+    "uniforms-unstyled": "^1.25.0",
+    "version-changelog": "^3.1.0"
   },
   "homepage": ".",
   "scripts": {

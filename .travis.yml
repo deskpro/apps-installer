@@ -28,5 +28,6 @@ deploy:
     api_key: $NPM_TOKEN
     email: radu.helstern@gmail.com
     skip_cleanup: true
+    before_deploy: rm build/app.zip
     on:
       tags: true
