@@ -4,6 +4,12 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+## [1.0.3][] - 2018-08-28
+
+### Added
+
+ - publish the installer as library 
+
 ## [1.0.2][] - 2018-08-24
 
  - fix broken travis script
@@ -139,7 +145,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 
 
-[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v1.0.2...HEAD
+[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v1.0.3...HEAD
+[1.0.3]: https://github.com/DeskproApps/app-installer/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/DeskproApps/app-installer/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/DeskproApps/app-installer/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/DeskproApps/app-installer/compare/v0.4.6...v1.0.0
