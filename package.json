@@ -1,7 +1,7 @@
 {
   "name": "@deskpro/apps-installer",
   "main": "lib/javascript/index.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": false,
   "dependencies": {
     "@deskpro/apps-sdk": "^0.7.2",
@@ -28,7 +28,7 @@
   "homepage": ".",
   "scripts": {
     "start": "PORT=31080 react-scripts start",
-    "build": "yarn build-sass && yarn build-js && node scripts/build.js",
+    "build": "yarn build-sass && yarn build-js && node scripts/build.js && yarn build-lib",
     "build-js": "react-scripts build",
     "build-sass": "rm -rf ./src/sass/**/*.css && node-sass ./src/sass -o ./src/sass",
     "build-lib": "yarn build-lib-js && yarn build-lib-sass",
