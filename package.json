@@ -1,12 +1,13 @@
 {
   "name": "@deskpro/apps-installer",
   "main": "lib/javascript/index.js",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": false,
   "dependencies": {
     "@deskpro/apps-sdk": "^0.7.2",
     "changelog-verify": "^1.1.0",
     "classnames": "^2.2.6",
+    "fbjs": "^0.8.17",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
