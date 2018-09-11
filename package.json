@@ -1,7 +1,7 @@
 {
   "name": "@deskpro/apps-installer",
   "main": "lib/javascript/index.js",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": false,
   "dependencies": {
     "@deskpro/apps-sdk": "^0.7.2",

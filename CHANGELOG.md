@@ -4,6 +4,12 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+## [1.0.6][] - 2018-09-11
+
+### Added
+
+  - enable travis to link the build artifact to a github PR
+
 ## [1.0.5][] - 2018-09-07
 
 ### Fixed
@@ -157,7 +163,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 
 
-[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v1.0.5...HEAD
+[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v1.0.6...HEAD
+[1.0.6]: https://github.com/DeskproApps/app-installer/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/DeskproApps/app-installer/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/DeskproApps/app-installer/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/DeskproApps/app-installer/compare/v1.0.2...v1.0.3
