@@ -4,6 +4,12 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+## [1.0.7][] - 2018-10-02
+
+### Fixed
+
+ - oauth2 methods no longer require specifying the protocolVersion when using a custom oauth2 configuration
+
 ## [1.0.7-beta.1][] - 2018-10-02
 
 ### Fixed
@@ -169,7 +175,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 
 
-[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v1.0.7-beta.1...HEAD
+[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v1.0.7...HEAD
+[1.0.7]: https://github.com/DeskproApps/app-installer/compare/v1.0.7-beta.1...v1.0.7
 [1.0.7-beta.1]: https://github.com/DeskproApps/app-installer/compare/v1.0.6...v1.0.7-beta.1
 [1.0.6]: https://github.com/DeskproApps/app-installer/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/DeskproApps/app-installer/compare/v1.0.4...v1.0.5
