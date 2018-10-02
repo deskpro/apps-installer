@@ -1,10 +1,10 @@
 {
   "name": "@deskpro/apps-installer",
   "main": "lib/javascript/index.js",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": false,
   "dependencies": {
-    "@deskpro/apps-sdk": "^0.7.2",
+    "@deskpro/apps-sdk": "0.8.2",
     "changelog-verify": "^1.1.0",
     "classnames": "^2.2.6",
     "fbjs": "^0.8.17",
