@@ -4,6 +4,12 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+## [1.0.8][] - 2018-11-12
+
+### Fixed
+
+ - settings form uses the setting's title to display the label of the corresponding field
+
 ## [1.0.7][] - 2018-10-02
 
 ### Fixed
@@ -175,7 +181,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 
 
-[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v1.0.7...HEAD
+[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v1.0.8...HEAD
+[1.0.8]: https://github.com/DeskproApps/app-installer/compare/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/DeskproApps/app-installer/compare/v1.0.7-beta.1...v1.0.7
 [1.0.7-beta.1]: https://github.com/DeskproApps/app-installer/compare/v1.0.6...v1.0.7-beta.1
 [1.0.6]: https://github.com/DeskproApps/app-installer/compare/v1.0.5...v1.0.6
