@@ -4,6 +4,10 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+### Fixed
+
+ - settings form uses the setting's title to display the label of the corresponding field
+
 ## [1.0.7][] - 2018-10-02
 
 ### Fixed
