@@ -78,6 +78,7 @@ export class UniformsSettingsTransformer
       return {
         [props.name]: {
           type: Array,
+          label: props.title,
           defaultValue: props.defaultValue,
           optional: !props.required,
           allowedValues: props.choices.map(choice => choice.value),
@@ -95,6 +96,7 @@ export class UniformsSettingsTransformer
     return {
       [props.name]: {
         type: String,
+        label: props.title,
         defaultValue: props.defaultValue,
         optional: !props.required,
         allowedValues: props.choices.map(choice => choice.value),
@@ -118,6 +120,7 @@ export class UniformsSettingsTransformer
     return {
       [props.name] : {
         ...validator,
+        label: props.title,
         type: String,
         defaultValue: props.defaultValue,
         optional: !props.required
@@ -135,6 +138,7 @@ export class UniformsSettingsTransformer
     return {
       [props.name] : {
         ...validator,
+        label: props.title,
         type: String,
         defaultValue: props.defaultValue,
         optional: !props.required,
@@ -155,6 +159,7 @@ export class UniformsSettingsTransformer
     return {
       [props.name] : {
         type: Boolean,
+        label: props.title,
         defaultValue: props.defaultValue,
         optional: !props.required,
         uniforms: {
