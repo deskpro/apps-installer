@@ -7,7 +7,7 @@
     "@deskpro/apps-sdk": "0.8.2",
     "changelog-verify": "^1.1.0",
     "classnames": "^2.2.6",
-    "fbjs": "^0.8.17",
+    "fbjs": "^1.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
