@@ -4,6 +4,14 @@ This project is following [Semantic Versioning](http://semver.org)
 
 ## [Unreleased][]
 
+## [1.1.0][] - 2019-07-16
+
+## [1.1.0][] - 2019-07-16
+
+### Fixed
+
+ - Upgrade `node-sass`
+
 ## [1.0.8][] - 2018-11-12
 
 ### Fixed
@@ -181,7 +189,8 @@ This project is following [Semantic Versioning](http://semver.org)
 
 
 
-[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v1.0.8...HEAD
+[Unreleased]: https://github.com/DeskproApps/app-installer/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/DeskproApps/app-installer/compare/v1.0.8...v1.1.0
 [1.0.8]: https://github.com/DeskproApps/app-installer/compare/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/DeskproApps/app-installer/compare/v1.0.7-beta.1...v1.0.7
 [1.0.7-beta.1]: https://github.com/DeskproApps/app-installer/compare/v1.0.6...v1.0.7-beta.1
