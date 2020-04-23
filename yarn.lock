@@ -9016,10 +9016,10 @@ upath@^0.2.0:
     lodash "3.x"
     underscore.string "2.3.x"
 
-upath@^1.0.5:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/upath/-/upath-1.1.0.tgz#35256597e46a581db4793d0ce47fa9aebfc9fabd"
-  integrity sha512-bzpH/oBhoS/QI/YtbkqCg6VEiPYjSZtrHQM6/QnJS6OL9pKUFLqb3aFh4Scvwm45+7iAgiMkLhSbaZxUqmrprw==
+upath@^1.0.5, upath@^1.1.0:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/upath/-/upath-1.1.2.tgz#3db658600edaeeccbe6db5e684d67ee8c2acd068"
+  integrity sha512-kXpym8nmDmlCBr7nKdIx8P2jNBa+pBpIUFRnKJ4dr8htyYGJFokkr2ZvERRtUN+9SY+JqXouNgUPtv6JQva/2Q==
 
 update-notifier@^2.3.0:
   version "2.5.0"
@@ -9188,9 +9188,9 @@ verror@1.10.0:
     extsprintf "^1.2.0"
 
 version-changelog@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/version-changelog/-/version-changelog-3.1.0.tgz#0ade9c87518d983bcf8b6a2b273d5aca3422cf96"
-  integrity sha1-Ct6ch1GNmDvPi2orJz1ayjQiz5Y=
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/version-changelog/-/version-changelog-3.1.1.tgz#5ece74d01825e4f1161c761381610164c48f06de"
+  integrity sha512-ONKT+V0SUsnkxSOc14olG9p/2lheUYMXnEy1w2U79ytxXo5GhCzwnkFDV/zlQpZ2Cl9Ynin60MrS/AccZrEMpQ==
   dependencies:
     bitbucket-url-from-git "^1.0.0"
     cross-spawn "^4.0.2"
@@ -9198,7 +9198,7 @@ version-changelog@^3.1.0:
     giturl "^1.0.0"
     has-yarn "^1.0.0"
     minimist "^1.2.0"
-    upath "^0.2.0"
+    upath "^1.1.0"
 
 vm-browserify@0.0.4:
   version "0.0.4"
